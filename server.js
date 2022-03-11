@@ -3,6 +3,7 @@ const helmet = require('helmet')
 const bodyParser = require('body-parser')
 const dotenv = require('dotenv')
 const morgan = require('morgan')
+const mongoConnect = require('./config')
 
 dotenv.config()
 const app = express()
@@ -17,5 +18,6 @@ app.get('/', (req,res)=>{
     res.status(200).json({message: 'Backend API up'})
 })
 app.listen(port, ()=>{
+    mongoConnect()
     console.log(`Server listing at ${port}`)
 })
