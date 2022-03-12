@@ -4,6 +4,8 @@ const bodyParser = require('body-parser')
 const dotenv = require('dotenv')
 const morgan = require('morgan')
 const mongoConnect = require('./config')
+const userRoutes = require('./routes/userRoute')
+const teteRoute = require('./routes/tete')
 
 dotenv.config()
 const app = express()
@@ -12,6 +14,8 @@ const port = process.env.PORT || 314
 app.use(helmet())
 app.use(bodyParser.json())
 app.use(morgan('dev'))
+app.use('/auth', userRoutes)
+app.use('/tete', teteRoute)
 
 
 app.get('/', (req,res)=>{
