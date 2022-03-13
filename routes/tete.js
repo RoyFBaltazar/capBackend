@@ -18,6 +18,17 @@ teteRoute.get('/', (req, res)=>{
   })
    
 })
+teteRoute.get('/username/:username', (req,res)=>{
+let username = req.params.username
+Tete.find({username: username},(error,result)=>{
+    if(error){
+        res.status(400).json({message: error.message})
+    }
+    else(    res.status(200).json({message: result})
+    )
+   
+})
+} )
 teteRoute.post('/username/:username',login, (req, res)=>{
     let username = req.params.username
     let password = req.body
@@ -67,12 +78,12 @@ teteRoute.delete('/username/:username',login, (req, res)=>{
         res.status(200).json({message: deletedTetemsg})
     })
 })
-teteRoute.put('/username/:username',login, (req, res)=>{
+teteRoute.put('/username/:username', login, (req, res)=>{
     let username = req.params.username
     let password = req.body
    
-    let id = req.body
-    let teteatete = req.body
+    let id = req.body.id
+    let teteatete = req.body.teteatete
     
     User.findOne({username: username}, (error, result)=>{
         if(error){
