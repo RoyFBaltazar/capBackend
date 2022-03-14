@@ -3,7 +3,8 @@ const User = require('../schema/userSchema')
 const teteRoute = express.Router()
 const Tete = require('../schema/teteSchema')
 const login = require('../middleware/tetelogin')
-const userRoutes = require('./userRoute')
+const verifyToken = require('../middleware/jwt')
+
 
 teteRoute.get('/', (req, res)=>{
   Tete.find({private: false}, (error, result)=>{
@@ -29,7 +30,7 @@ Tete.find({username: username},(error,result)=>{
    
 })
 } )
-teteRoute.post('/username/:username',login, (req, res)=>{
+teteRoute.post('/username/:username',login, verifyToken, (req, res)=>{
     let username = req.params.username
     let password = req.body
     let newTete = req.body
@@ -53,7 +54,7 @@ teteRoute.post('/username/:username',login, (req, res)=>{
         res.status(200).json({message: newTetemsg})
     })
 })
-teteRoute.delete('/username/:username',login, (req, res)=>{
+teteRoute.delete('/username/:username',login, verifyToken ,(req, res)=>{
     let username = req.params.username
     let password = req.body
    
@@ -78,7 +79,7 @@ teteRoute.delete('/username/:username',login, (req, res)=>{
         res.status(200).json({message: deletedTetemsg})
     })
 })
-teteRoute.put('/username/:username', login, (req, res)=>{
+teteRoute.put('/username/:username', login, verifyToken, (req, res)=>{
     let username = req.params.username
     let password = req.body
    
