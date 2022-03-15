@@ -2,6 +2,7 @@ const jwt = require('jsonwebtoken')
 
 function verifyToken(req, res, next){
     let token = req.get('Authorization')
+    
     if(token === null){
         res.status(403).json({message: "login with token please"})
     }

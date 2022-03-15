@@ -2,6 +2,7 @@ const bcrypt = require('bcrypt')
 const express = require('express')
 const userRoutes = express.Router()
 const jwt = require('jsonwebtoken')
+
 const User = require('../schema/userSchema')
 
 
@@ -48,8 +49,9 @@ if(!password || !username){
         if(match === false){
              res.status(400).json({message: `${username} does not match password`})
          }
-         let token = jwt.sign(username, process.env.JWT_SECRET)
-         res.status(200).json({data: ` ${username} you are logged in` })
+         let token = jwt.sign(username, process.env.JWT_SECRET, {expiresIn: '24h'})
+         res.setHeader('Authorization', token)
+         res.status(200).json({data: ` ${username} you are logged in ${token}` })
      })
  })
 })
