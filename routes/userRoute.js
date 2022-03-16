@@ -51,7 +51,7 @@ if(!password || !username){
          }
          let token = jwt.sign(username, process.env.JWT_SECRET,)
          res.setHeader('Authorization', token)
-         res.status(200).json({data: ` ${username} you are logged in token: ${token}` })
+         res.status(200).json({data: ` ${username} you are logged in token: ${token}`, token: token })
      })
  })
 })
