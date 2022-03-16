@@ -14,7 +14,7 @@ const port = process.env.PORT || 314
 
 app.use(cors({
     origin: "*",
-    methods: ['GET','POST','DELETE','UPDATE','PUT','PATCH']
+    methods: ["GET","POST","DELETE","UPDATE","PUT","PATCH"],
 }))
 app.use(helmet())
 app.use(bodyParser.json())
