@@ -12,7 +12,7 @@ userRoutes.get('/', (req, res)=>{
 userRoutes.post('/register', async (req, res)=>{
     let username = req.body
     let password = req.body.password
-  
+  let email = req.body
     let age = req.body.age
     let salt = Number(process.env.SALT)
     let hashPassword = await bcrypt.hash(password, salt)
@@ -51,7 +51,7 @@ if(!password || !username){
          }
          let token = jwt.sign(username, process.env.JWT_SECRET, {expiresIn: '24h'})
          res.setHeader('Authorization', token)
-         res.status(200).json({data: ` ${username} you are logged in ${token}` })
+         res.status(200).json({data: ` ${username} you are logged in token: ${token}` })
      })
  })
 })
