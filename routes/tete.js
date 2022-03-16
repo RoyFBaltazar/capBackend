@@ -9,7 +9,7 @@ const verifyToken = require('../middleware/jwt')
 teteRoute.get('/', (req, res)=>{
   Tete.find({private: false}, (error, result)=>{
       if(error){
-          res.status(404).json({message: error.message})
+          res.status(403).json({message: error.message})
       }
       if(result === null || result === undefined || result === []){
         res.status(404).json({message: "NOT FOUND"})
@@ -43,7 +43,7 @@ teteRoute.post('/username/:username',login, verifyToken, (req, res)=>{
             res.status(404).json({message: `${username} not found`})
         }
         if(result.username !== username){
-            res.status(403).json({message: "does not match user"})
+            res.status(400).json({message: "does not match user"})
         }
     })
     Tete.create(newTete, (error, newTetemsg)=>{
