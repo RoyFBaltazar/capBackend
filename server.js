@@ -10,12 +10,9 @@ const teteRoute = require('./routes/tete')
 
 dotenv.config()
 const app = express()
-const port = process.env.PORT || 314
+const port = process.env.PORT || 3143
 
-app.use(cors({
-    origin: "*",
-    
-}))
+app.use(cors())
 app.use(helmet())
 app.use(bodyParser.json())
 app.use(morgan('dev'))
