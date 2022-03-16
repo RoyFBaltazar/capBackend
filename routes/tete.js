@@ -40,7 +40,7 @@ teteRoute.post('/username/:username',login, verifyToken, (req, res)=>{
             res.status(400).json({message: error.message})
         }
         if(result === null || result === undefined){
-            res.status.json({message: `${username} not found`})
+            res.status(404).json({message: `${username} not found`})
         }
         if(result.username !== username){
             res.status(403).json({message: "does not match user"})
@@ -91,7 +91,7 @@ teteRoute.put('/username/:username', login, verifyToken, (req, res)=>{
             res.status(400).json({message: error.message})
         }
         if(result === null || result === undefined){
-            res.status.json({message: `${username} not found`})
+            res.status(404).json({message: `${username} not found`})
         }
         if(result.username !== username){
             res.status(403).json({message: "does not match user"})
