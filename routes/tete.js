@@ -30,9 +30,9 @@ Tete.find({username: username},(error,result)=>{
    
 })
 } )
-teteRoute.post('/username/:username',login, verifyToken, (req, res)=>{
+teteRoute.post('/username/:username', verifyToken, (req, res)=>{
     let username = req.params.username
-    let password = req.body
+    
     let newTete = req.body
     
     User.findOne({username: username}, (error, result)=>{
