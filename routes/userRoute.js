@@ -49,12 +49,15 @@ if(!password || !username){
         if(match === false){
              res.status(400).json({message: `${username} does not match password`})
          }
+      
          let token = jwt.sign(username, process.env.JWT_SECRET,)
+
          res.setHeader('Authorization', token)
          res.status(200).json({data: `${username} you are logged in token: ${token}`, token: token, username: username})
-        // res.status(200).json({data: ` ${username} you are logged in token: ${token}` }, {token: token})
+         
      })
  })
+
 })
 
 
