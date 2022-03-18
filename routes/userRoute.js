@@ -18,14 +18,16 @@ userRoutes.post('/register', async (req, res)=>{
     let hashPassword = await bcrypt.hash(password, salt)
     username.password = hashPassword
     if(age <= 18){
-        res.status(400).json({message: 'must be 18 years old'}).end()
+        res.status(400).json({message: 'must be 18 years old'})
     }
     User.create(username, (err, newUser)=>{
         if(err){
-            console.log(err)
-            res.status(400).json({message: 'Pick a new Username'}).end()
+            
+            res.status(400).json({message: err.message + 'Pick a new Username'})
         }
-        else{res.status(201).json({user: newUser})}
+        else{
+            res.status(201).json({user: newUser})
+        }
     })
 })
 userRoutes.post('/login',(req,res)=>{
