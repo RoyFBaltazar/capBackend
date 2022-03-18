@@ -18,12 +18,12 @@ userRoutes.post('/register', async (req, res)=>{
     let hashPassword = await bcrypt.hash(password, salt)
     username.password = hashPassword
     if(age <= 18){
-        res.status(400).json({message: 'must be 18 years old'})
+        res.status(400).json({message: 'must be 18 years old'}).end()
     }
     User.create(username, (err, newUer)=>{
         if(err){
             console.log(err)
-            res.status(400).json({message: err.message})
+            res.status(400).json({message: err.message}).end()
         }
         res.status(201).json({user: newUer})
     })
@@ -36,24 +36,27 @@ if(!password || !username){
     res.status(400).json({message: `Check ${username} and ${password}` })
 }
  User.findOne({username: username}, (error, result)=>{
+     console.log(result)
      if(error){
-         res.status(400).json({message: error.message})
+         res.status(400).json({message: error.message}).end()
      }
      if(result === null || result === undefined){
-         res.status(404).json({message: 'User not found'})
+         res.status(404).json({message: 'User not found'}).end()
      }
      bcrypt.compare(password, result.password, (error, match)=>{
         if(error){
-            res.status(400).json({message: error.message})
+            res.status(400).json({message: error.message}).end()
         } 
         if(match === false){
-             res.status(400).json({message: `${username} does not match password`})
+             res.status(400).json({message: `${username} does not match password`}).end()
+         } else{
+
+            let token = jwt.sign(username, process.env.JWT_SECRET,)
+
+            res.setHeader('Authorization', token)
+            res.status(200).json({data: `${username} you are logged in token: ${token}`, token: token, username: username})
          }
       
-         let token = jwt.sign(username, process.env.JWT_SECRET,)
-
-         res.setHeader('Authorization', token)
-         res.status(200).json({data: `${username} you are logged in token: ${token}`, token: token, username: username})
          
      })
  })
