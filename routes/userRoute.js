@@ -17,6 +17,7 @@ userRoutes.post('/register', async (req, res)=>{
     let salt = Number(process.env.SALT)
     let hashPassword = await bcrypt.hash(password, salt)
     username.password = hashPassword
+
     if(age <= 18){
         res.status(400).json({message: 'must be 18 years old'})
     }
@@ -25,11 +26,12 @@ userRoutes.post('/register', async (req, res)=>{
             
             res.status(400).json({message: err.message + 'Pick a new Username'})
         }
-        else{
+        
             res.status(201).json({user: newUser})
-        }
+        
     })
 })
+
 userRoutes.post('/login',(req,res)=>{
 let username = req.body.username
 let password = req.body.password
@@ -50,7 +52,7 @@ if(!password || !username){
             res.status(400).json({message: 'Check Username or Password'}).end()
         } 
         if(match === false){
-             res.status(400).json({message: `${username} does not match password`}).end()
+             res.status(400).json({message: `${error.message} ${username} does not match password`}).end()
          } else{
 
             let token = jwt.sign(username, process.env.JWT_SECRET,)
