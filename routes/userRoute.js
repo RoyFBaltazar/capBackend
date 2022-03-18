@@ -23,7 +23,7 @@ userRoutes.post('/register', async (req, res)=>{
     User.create(username, (err, newUer)=>{
         if(err){
             console.log(err)
-            res.status(400).json({message: err.message}).end()
+            res.status(400).json({message: 'Pick a new Username'}).end()
         }
         else{res.status(201).json({user: newUer})}
     })
@@ -45,7 +45,7 @@ if(!password || !username){
      }
      bcrypt.compare(password, result.password, (error, match)=>{
         if(error){
-            res.status(400).json({message: error.message}).end()
+            res.status(400).json({message: 'Check Username or Password'}).end()
         } 
         if(match === false){
              res.status(400).json({message: `${username} does not match password`}).end()
