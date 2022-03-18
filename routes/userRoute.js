@@ -19,7 +19,7 @@ userRoutes.post('/register', async (req, res)=>{
     username.password = hashPassword
 
     if(age <= 18){
-        res.status(400).json({message: 'must be 18 years old'})
+        res.status(400).json({message: ` must be 18 years old`})
     }
     User.create(username, (err, newUser)=>{
         if(err){
@@ -42,23 +42,23 @@ if(!password || !username){
  User.findOne({username: username}, (error, result)=>{
      console.log(result)
      if(error){
-         res.status(400).json({message: error.message}).end()
+         res.status(400).json({message: error.message + ' user not found'})
      }
      if(result === null || result === undefined){
-         res.status(404).json({message: 'User not found'}).end()
+         res.status(404).json({message: `${error.message} User not found`})
      }
      else{bcrypt.compare(password, result.password, (error, match)=>{
         if(error){
-            res.status(400).json({message: 'Check Username or Password'}).end()
+            res.status(400).json({message: ` ${error.message} Check Username or Password`})
         } 
         if(match === false){
-             res.status(400).json({message: `${error.message} ${username} does not match password`}).end()
+             res.status(400).json({message: `${error.message} ${username} does not match password`})
          } else{
 
             let token = jwt.sign(username, process.env.JWT_SECRET,)
 
             res.setHeader('Authorization', token)
-            res.status(200).json({data: `${username} you are logged in token: ${token}`, token: token, username: username})
+            res.status(200).json({data: `  ${username} you are logged in token: ${token}`, token: token, username: username})
          }
       
          
