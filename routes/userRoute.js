@@ -25,7 +25,7 @@ userRoutes.post('/register', async (req, res)=>{
             console.log(err)
             res.status(400).json({message: err.message}).end()
         }
-        res.status(201).json({user: newUer})
+        else{res.status(201).json({user: newUer})}
     })
 })
 userRoutes.post('/login',(req,res)=>{

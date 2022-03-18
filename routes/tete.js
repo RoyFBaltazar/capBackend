@@ -51,10 +51,10 @@ teteRoute.post('/username/:username', verifyToken, (req, res)=>{
         if(error){
             res.status(400).json({message: error.message})
         }
-        res.status(200).json({message: newTetemsg})
+        else{res.status(200).json({message: newTetemsg})}
     })
 })
-teteRoute.delete('/username/:username',login, verifyToken ,(req, res)=>{
+teteRoute.delete('/username/:username', verifyToken ,(req, res)=>{
     let username = req.params.username
     let password = req.body
    
