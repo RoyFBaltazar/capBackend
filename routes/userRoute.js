@@ -43,7 +43,7 @@ if(!password || !username){
      if(result === null || result === undefined){
          res.status(404).json({message: 'User not found'}).end()
      }
-     bcrypt.compare(password, result.password, (error, match)=>{
+     else{bcrypt.compare(password, result.password, (error, match)=>{
         if(error){
             res.status(400).json({message: 'Check Username or Password'}).end()
         } 
@@ -58,7 +58,7 @@ if(!password || !username){
          }
       
          
-     })
+     })}
  })
 
 })
