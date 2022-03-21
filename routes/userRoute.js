@@ -21,15 +21,15 @@ userRoutes.post('/register', async (req, res)=>{
     if(age <= 18){
         res.status(400).json({message: ` must be 18 years old`})
     }
-    User.create(username, (err, newUser)=>{
+    else{   User.create(username, (err, newUser)=>{
         if(err){
             
             res.status(400).json({message: err.message + 'Pick a new Username'})
         }
         
-            res.status(201).json({user: newUser})
+            else{res.status(201).json({user: newUser})}
         
-    })
+    })}
 })
 
 userRoutes.post('/login',(req,res)=>{
